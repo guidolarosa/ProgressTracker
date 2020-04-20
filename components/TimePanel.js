@@ -38,6 +38,8 @@ const TimePanel = props => {
                 .time-panel .selected-task {
                     display: inline-block;
                     padding: 5px 15px;
+                    width: 40%;
+                    text-align: center;
                     border-radius: 100px;
                     background: 
                         ${props.selectedTask ? 

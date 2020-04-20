@@ -58,11 +58,17 @@ const Countdown = props => {
         return () => clearInterval(timerInterval);
     },[ isTimerRunning, timeRemaining ])
 
+    const changeMinutes = change => {
+        setTimeRemaining({
+            minutes: timeRemaining.minutes += change,
+            seconds: timeRemaining.seconds
+        })
+    }
+
     return (
         <>
             <span 
-                className="countdown" 
-                onClick={toggleTimerState}
+                className="countdown"
             >
                 {timeRemaining.minutes < 10 ?
                     '0' + timeRemaining.minutes :
@@ -73,10 +79,13 @@ const Countdown = props => {
                 }
             </span>
             <section className="countdown-controls">
-                <span>-5</span>
-                <span>PL</span>
+                <span
+                    onClick={() => changeMinutes(-5)}>-5</span>
+                <span
+                    onClick={toggleTimerState}>PL</span>
                 <span>PS</span>
-                <span>+5</span>
+                <span
+                    onClick={() => changeMinutes(5)}>+5</span>
             </section>
             <style jsx>{`
                 .countdown {
@@ -85,6 +94,7 @@ const Countdown = props => {
                     text-align: center;
                     font-size: 5rem;
                     font-weight: 500;
+                    margin-top: 20px;
                 }
                 .countdown-controls {
                     height: 50px;
@@ -99,7 +109,8 @@ const Countdown = props => {
                     font-size: 1.5rem;
                     line-height: 50px;
                     font-weight: bold;  
-                    color: ${getBlack(.8)}
+                    color: ${getBlack(.8)};
+                    cursor: pointer;
                 }
             `}</style>
         </>
