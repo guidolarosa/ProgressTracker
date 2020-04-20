@@ -1,0 +1,38 @@
+{
+    "11111": {
+        "name": {
+            "fname": "Guido",
+            "lname": "La Rosa"
+        },
+        "user_tasks": [
+            {
+                "name": "Math",
+                "color": 1
+            },
+            {
+                "name": "Physics",
+                "color": 2
+            },
+            {
+                "name": "Science",
+                "color": 7
+            },
+            {
+                "name": "Engineering",
+                "color": 3
+            },
+            {
+                "name": "Algebra",
+                "color": 4
+            },
+            {
+                "name": "Geometry",
+                "color": 5
+            },
+            {
+                "name": "Computer Sciences",
+                "color": 6
+            }
+        ]
+    }
+}
