@@ -63,13 +63,22 @@ const Countdown = props => {
             minutes: timeRemaining.minutes += change,
             seconds: timeRemaining.seconds
         })
+    };
+
+    const resetTimer = (resetTime = {minutes: 25, seconds: 0}) => {
+        setIsTimerRunning(false);
+        setTimeRemaining({
+            minutes: resetTime.minutes,
+            seconds: resetTime.seconds
+        })
     }
 
     return (
         <>
-            <span 
-                className="countdown"
-            >
+            <span className={isTimerRunning ?
+                    'countdown timer-running' :
+                    'countdown'
+                }>
                 {timeRemaining.minutes < 10 ?
                     '0' + timeRemaining.minutes :
                     timeRemaining.minutes
@@ -82,12 +91,29 @@ const Countdown = props => {
                 <span
                     onClick={() => changeMinutes(-5)}>-5</span>
                 <span
-                    onClick={toggleTimerState}>PL</span>
-                <span>PS</span>
+                    className={`control-button ${isTimerRunning ? `disabled` : ``}`}
+                    onClick={() => {setIsTimerRunning(true)}}>
+                    <img src="/img/icon-play.png"/>
+                </span>
+                <span
+                    className={`control-button`}
+                    onClick={() => {resetTimer()}}>
+                    <img src="/img/icon-reset.png"/>
+                </span>
+                <span
+                    className={`control-button ${!isTimerRunning ? `disabled` : ``}`}
+                    onClick={() => {setIsTimerRunning(false)}}>
+                    <img src="/img/icon-pause.png"/>
+                </span>
                 <span
                     onClick={() => changeMinutes(5)}>+5</span>
             </section>
             <style jsx>{`
+                @keyframes fade-in-out {
+                    0% {opacity: 1}
+                    50% {opacity: .7}
+                    100% {opacity: 1}
+                }
                 .countdown {
                     display: inline-block;
                     width: 100%;
@@ -95,6 +121,14 @@ const Countdown = props => {
                     font-size: 5rem;
                     font-weight: 500;
                     margin-top: 20px;
+                    opacity: 1;
+                }
+                .countdown.timer-running {
+                    animation-name: fade-in-out;
+                    animation-duration: .5s;
+                    animation-timing-function: ease-in-out;
+                    animation-fill-mode: forward;
+                    animation-iteration-count: infinite;
                 }
                 .countdown-controls {
                     height: 50px;
@@ -109,8 +143,19 @@ const Countdown = props => {
                     font-size: 1.5rem;
                     line-height: 50px;
                     font-weight: bold;  
-                    color: ${getBlack(.8)};
+                    color: ${getBlack(.4)};
                     cursor: pointer;
+                }
+                .countdown-controls span img {
+                    height: 1.5rem;
+                    position: relative;
+                    top: 5px;
+                }
+                .control-button {
+                    transition: .2s ease-in-out opacity;
+                }
+                .control-button.disabled {
+                    opacity: .5;
                 }
             `}</style>
         </>

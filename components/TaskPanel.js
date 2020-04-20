@@ -2,6 +2,26 @@ import { useEffect, useState } from 'react';
 import { getTaskColor } from './../theme/colors';
 
 const TaskPanel = props => {
+
+    const getSelectedTask = taskId => {
+        const userTasks = props.userTasks;
+        let selectedTask = null;
+        userTasks.forEach(task => {
+            if (task.id == taskId) {
+                selectedTask = task;
+            }
+        })
+        return selectedTask;
+    }
+    const switchSelectedTask = newTaskId => {
+        let selectedTask = getSelectedTask(newTaskId);
+        console.log(selectedTask);
+        setTimeout(() => {
+            console.log(selectedTask)
+        }, 1000)
+        props.setSelectedTask(selectedTask);
+    };
+
     return (
         <section className="task-panel">
             <h2>What are you working on?</h2>
@@ -11,6 +31,8 @@ const TaskPanel = props => {
                         <span 
                             className="task" 
                             key={index}
+                            taskId={task.id}
+                            onClick={() => {switchSelectedTask(task.id)}}
                             style={{
                                 background: getTaskColor(task.color)
                             }}>

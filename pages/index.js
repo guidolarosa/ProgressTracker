@@ -28,6 +28,7 @@ const Index = () => {
                 <TimePanel 
                     userData={currentUserData}
                     selectedTask={selectedTask}
+                    setSelectedTask={setSelectedTask}
                     />
                 <DetailsPanel userData={currentUserData}/>
                 <style jsx global>{`

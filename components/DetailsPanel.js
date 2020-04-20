@@ -55,6 +55,19 @@ const DetailsPanel = props => {
                     background: white;
                     grid-area: details;
                     border-radius: 10px;
+                    position: relative;
+                }
+                .details-panel::before {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    background: white;
+                    height: 30px;
+                    opacity: 1;
+                    bottom: 10px;
+                    left: 0;
+                    background: linear-gradient(rgba(0,0,0,0), white);
+                    z-index: 1;
                 }
                 .details-panel h2 {
                     color: ${getBlack(0.8)};
@@ -82,7 +95,8 @@ const DetailsPanel = props => {
                     margin-bottom: 20px;
                 }
                 .months-container .month .month-name {
-                    color: ${getBlack(.7)}
+                    font-weight: 500;
+                    color: ${getBlack(.5)}
                 }
                 .day-progress-container {
                     display: flex;
@@ -94,7 +108,12 @@ const DetailsPanel = props => {
                     height: 2.2vw;
                     background-color: ${getPallete('green')};
                     border-radius: 100px;
-                    transform: scale(.7)
+                    transform: scale(.7);
+                    cursor: pointer;
+                    transition: .1s ease-in-out transform;
+                }
+                .day-progress-container .day-indicator:hover {
+                    transform: scale(.9);
                 }
             `}</style>
         </section>

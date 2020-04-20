@@ -19,7 +19,10 @@ const TimePanel = props => {
                 </section>
                 <Countdown />
             </section>
-            <TaskPanel userTasks={props.userData.user_tasks}/>
+            <TaskPanel 
+                userTasks={props.userData.user_tasks}
+                setSelectedTask={props.setSelectedTask}
+                />
             <style jsx>{`
                 .time-panel {
                     padding: 20px;
@@ -38,7 +41,8 @@ const TimePanel = props => {
                 .time-panel .selected-task {
                     display: inline-block;
                     padding: 5px 15px;
-                    width: 40%;
+                    min-width: 40%;
+                    max-width: 60%;
                     text-align: center;
                     border-radius: 100px;
                     background: 

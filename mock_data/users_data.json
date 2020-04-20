@@ -7,31 +7,38 @@
         "user_tasks": [
             {
                 "name": "Math",
-                "color": 1
+                "color": 1,
+                "id":"12345"
             },
             {
                 "name": "Physics",
-                "color": 2
+                "color": 2,
+                "id":"12346"
             },
             {
                 "name": "Science",
-                "color": 7
+                "color": 7,
+                "id":"12347"
             },
             {
                 "name": "Engineering",
-                "color": 3
+                "color": 3,
+                "id":"12348"
             },
             {
                 "name": "Algebra",
-                "color": 4
+                "color": 4,
+                "id":"12349"
             },
             {
                 "name": "Geometry",
-                "color": 5
+                "color": 5,
+                "id":"12340"
             },
             {
                 "name": "Computer Sciences",
-                "color": 6
+                "color": 6,
+                "id":"12341"
             }
         ]
     }
