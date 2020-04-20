@@ -45,6 +45,7 @@ const TimePanel = props => {
                     max-width: 60%;
                     text-align: center;
                     border-radius: 100px;
+                    pointer-events: none;
                     background: 
                         ${props.selectedTask ? 
                             getTaskColor(props.selectedTask.color) :

@@ -1,4 +1,5 @@
 import { getBlack, getPallete } from './../theme/colors';
+import Moment from 'react-moment';
 
 const DetailsPanel = props => {
     const months = [
@@ -14,12 +15,23 @@ const DetailsPanel = props => {
         'October',
         'November',
         'December'
+    ];
+
+    const weekdays = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
     ]
-    const date = new Date();
+
+    const today = new Date();
 
     const turnDaysIntoArray = (month) => {
         const days = [];
-        const totalDays = daysInMonth(month, date.getFullYear());
+        const totalDays = daysInMonth(month, today.getFullYear());
         for (let i = 1; i <= totalDays; i++) {
             days.push(i);
         }
@@ -30,18 +42,28 @@ const DetailsPanel = props => {
         return new Date(year, month, 0).getDate();
     }
 
+    const formatDate = date => {
+        let month = date.getMonth();
+        let day = date.getDate();
+        let year = date.getFullYear();
+        let weekday = date.getDay();
+        return `${weekdays[weekday]} ${day} ${months[month]} ${year}`;
+    }
+
     return (
         <section className="details-panel">
             <h2 className="dropdown-title-selector">Months</h2>
             <section className="months-container">
-                {months.map((month, index) => {
+                {months.map((month, monthIndex) => {
                     return (
-                        <section className="month" key={index}>
+                        <section className="month" key={monthIndex}>
                             <h3 className="month-name">{month}</h3>
                             <section className="day-progress-container">
-                                {turnDaysIntoArray(index).map((day, index) => {
+                                {turnDaysIntoArray(monthIndex).map((day) => {
                                     return (
-                                        <section className="day-indicator empty"></section>
+                                        <section 
+                                            title={formatDate(new Date(today.getFullYear(), monthIndex, day))}
+                                            className="day-indicator empty"></section>
                                     )
                                 })}
                             </section>
@@ -78,7 +100,7 @@ const DetailsPanel = props => {
                     flex-wrap: wrap;
                     overflow-y: auto;
                     height: 95%;
-                    padding-right: 5px;
+                    padding-right: 15px;
                     margin-top: 5px;
                 }
                 .months-container::-webkit-scrollbar {
@@ -96,19 +118,23 @@ const DetailsPanel = props => {
                 }
                 .months-container .month .month-name {
                     font-weight: 500;
-                    color: ${getBlack(.5)}
+                    color: ${getBlack(.5)};
+                    padding-bottom: 3px;
+                    border-bottom: 1px solid ${getBlack(.1)};
+                    margin-bottom: 10px;
                 }
                 .day-progress-container {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-between;
+                    display: grid;
+                    grid-template-columns: repeat(7, 7fr);
+                    grid-template-rows: repeat(5, auto);
+                    column-gap: 10px;
+                    row-gap: 5px;
                 }
                 .day-progress-container .day-indicator {
-                    width: calc(100% / 7);
-                    height: 2.2vw;
                     background-color: ${getPallete('green')};
+                    width: 100%;
+                    height: 1.4vw;
                     border-radius: 100px;
-                    transform: scale(.7);
                     cursor: pointer;
                     transition: .1s ease-in-out transform;
                 }

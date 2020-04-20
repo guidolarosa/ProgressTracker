@@ -59,10 +59,12 @@ const Countdown = props => {
     },[ isTimerRunning, timeRemaining ])
 
     const changeMinutes = change => {
-        setTimeRemaining({
-            minutes: timeRemaining.minutes += change,
-            seconds: timeRemaining.seconds
-        })
+        if (timeRemaining.minutes < 95) {
+            setTimeRemaining({
+                minutes: timeRemaining.minutes += change,
+                seconds: timeRemaining.seconds
+            })
+        }
     };
 
     const resetTimer = (resetTime = {minutes: 25, seconds: 0}) => {
@@ -89,23 +91,28 @@ const Countdown = props => {
             </span>
             <section className="countdown-controls">
                 <span
+                    title="Remove 5 minutes"
                     onClick={() => changeMinutes(-5)}>-5</span>
                 <span
+                    title="Play/resume countdown"
                     className={`control-button ${isTimerRunning ? `disabled` : ``}`}
                     onClick={() => {setIsTimerRunning(true)}}>
                     <img src="/img/icon-play.png"/>
                 </span>
                 <span
+                    title="Reset countdown"
                     className={`control-button`}
                     onClick={() => {resetTimer()}}>
                     <img src="/img/icon-reset.png"/>
                 </span>
                 <span
+                    title="Pause countdown"
                     className={`control-button ${!isTimerRunning ? `disabled` : ``}`}
                     onClick={() => {setIsTimerRunning(false)}}>
                     <img src="/img/icon-pause.png"/>
                 </span>
                 <span
+                    title="Add 5 minutes"
                     onClick={() => changeMinutes(5)}>+5</span>
             </section>
             <style jsx>{`
@@ -138,6 +145,7 @@ const Countdown = props => {
                     display: flex;
                     justify-content: space-between;
                     padding: 0 20px;
+                    box-shadow: 0px 2px 5px brown;
                 }
                 .countdown-controls span {
                     font-size: 1.5rem;
