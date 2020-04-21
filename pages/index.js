@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getPallete } from './../theme/colors';
 import Navbar from './../components/Navbar';
 import TimePanel from './../components/TimePanel';
 import DetailsPanel from './../components/DetailsPanel';
@@ -41,7 +42,7 @@ const Index = () => {
                         font-weight: medium;
                     }
                     body {
-                        background-color: #F2523A;
+                        background-color: ${getPallete('main-background')};
                     }
                 `}
                 </style>

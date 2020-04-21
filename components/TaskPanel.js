@@ -15,7 +15,7 @@ const TaskPanel = props => {
     }
     const switchSelectedTask = newTaskId => {
         let selectedTask = getSelectedTask(newTaskId);
-        console.log(selectedTask);
+        // console.log(selectedTask);
         setTimeout(() => {
             console.log(selectedTask)
         }, 1000)
@@ -25,21 +25,24 @@ const TaskPanel = props => {
     return (
         <section className="task-panel">
             <h2>What are you working on?</h2>
-            {props.userTasks ? 
-                props.userTasks.map((task, index) => {
-                    return (
-                        <span 
-                            className="task" 
-                            key={index}
-                            taskId={task.id}
-                            onClick={() => {switchSelectedTask(task.id)}}
-                            style={{
-                                background: getTaskColor(task.color)
-                            }}>
-                            {task.name}
-                        </span>
-                    )
-                }) : <span>No tasks added yet.</span>}
+            <section className="tasks-container">
+                {props.userTasks ? 
+                    props.userTasks.map((task, index) => {
+                        return (
+                            <span 
+                                className="task" 
+                                key={index}
+                                taskId={task.id}
+                                onClick={() => {switchSelectedTask(task.id)}}
+                                style={{
+                                    background: getTaskColor(task.color)
+                                }}>
+                                {task.name}
+                            </span>
+                        )
+                    }) : <span>No tasks added yet.</span>
+                }
+            </section>
             <style jsx>{`
                 .task-panel {
                     background-color: white;
@@ -56,6 +59,13 @@ const TaskPanel = props => {
                     margin-right: 5px;
                     cursor: pointer;
                     margin-bottom: 5px;
+                    transition: .1s ease-in-out opacity;
+                }
+                .tasks-container:hover .task {
+                    opacity: .5;
+                }
+                .task.task.task:hover {
+                    opacity: 1;
                 }
                 h2 {
                     color: #2D2D2D;

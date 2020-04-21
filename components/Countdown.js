@@ -1,5 +1,5 @@
 import useInterval from './../tools/useInterval';
-import { getBlack } from './../theme/colors';
+import { getBlack, getPallete } from './../theme/colors';
 import { useState, useEffect } from 'react';
 
 const Countdown = props => {
@@ -16,7 +16,7 @@ const Countdown = props => {
     }
 
     const returnNextTime = previousTime => {
-        console.log(previousTime)
+        // console.log(previousTime)
         let newMinutes, newSeconds;
         newMinutes = previousTime.seconds === 0 ?
             --previousTime.minutes :
@@ -47,16 +47,16 @@ const Countdown = props => {
     useEffect(() => {
         let timerInterval = null;
         if (isTimerRunning) {
-            console.log('Timer running');
+            // console.log('Timer running');
             timerInterval = setInterval(() => {
-                console.log('Tick...');
+                // console.log('Tick...');
                 setTimeRemaining(returnNextTime(timeRemaining));
             }, 1000);
         } else {
-            console.log('Timer stopped')
+            // console.log('Timer stopped')
         }
         return () => clearInterval(timerInterval);
-    },[ isTimerRunning, timeRemaining ])
+    },[ isTimerRunning, timeRemaining ]);
 
     const changeMinutes = change => {
         if (timeRemaining.minutes < 95) {
@@ -75,6 +75,16 @@ const Countdown = props => {
         })
     }
 
+    const isTimeZero = timeRemaining => {
+        const { minutes, seconds } = timeRemaining;
+        // console.log(minutes, seconds);
+        if (minutes == 0 && seconds == 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     return (
         <>
             <span className={isTimerRunning ?
@@ -91,6 +101,10 @@ const Countdown = props => {
             </span>
             <section className="countdown-controls">
                 <span
+                    className={isTimeZero(timeRemaining) ? 
+                        'disabled change-minutes-button' :
+                        'change-minutes-button'
+                        }
                     title="Remove 5 minutes"
                     onClick={() => changeMinutes(-5)}>-5</span>
                 <span
@@ -112,27 +126,28 @@ const Countdown = props => {
                     <img src="/img/icon-pause.png"/>
                 </span>
                 <span
+                    className="change-minutes-button"
                     title="Add 5 minutes"
                     onClick={() => changeMinutes(5)}>+5</span>
             </section>
             <style jsx>{`
                 @keyframes fade-in-out {
                     0% {opacity: 1}
-                    50% {opacity: .7}
+                    50% {opacity: .5}
                     100% {opacity: 1}
                 }
                 .countdown {
                     display: inline-block;
                     width: 100%;
                     text-align: center;
-                    font-size: 5rem;
+                    font-size: 6rem;
                     font-weight: 500;
                     margin-top: 20px;
                     opacity: 1;
                 }
                 .countdown.timer-running {
                     animation-name: fade-in-out;
-                    animation-duration: .5s;
+                    animation-duration: 2s;
                     animation-timing-function: ease-in-out;
                     animation-fill-mode: forward;
                     animation-iteration-count: infinite;
@@ -145,13 +160,13 @@ const Countdown = props => {
                     display: flex;
                     justify-content: space-between;
                     padding: 0 20px;
-                    box-shadow: 0px 2px 5px brown;
+                    box-shadow: 0px 2px 5px black;
                 }
                 .countdown-controls span {
                     font-size: 1.5rem;
                     line-height: 50px;
                     font-weight: bold;  
-                    color: ${getBlack(.4)};
+                    color: ${getBlack(.6)};
                     cursor: pointer;
                 }
                 .countdown-controls span img {
@@ -162,8 +177,17 @@ const Countdown = props => {
                 .control-button {
                     transition: .2s ease-in-out opacity;
                 }
-                .control-button.disabled {
-                    opacity: .5;
+                .control-button.disabled,
+                .change-minutes-button.disabled {
+                    opacity: .3;
+                    pointer-events: none;
+                }
+                .change-minutes-button {
+                    opacity: .7;
+                    transition: .1s ease-in-out opacity;
+                }
+                .change-minutes-button:hover {
+                    opacity: 1;
                 }
             `}</style>
         </>

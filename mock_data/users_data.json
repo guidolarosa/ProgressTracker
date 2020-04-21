@@ -8,37 +8,135 @@
             {
                 "name": "Math",
                 "color": 1,
-                "id":"12345"
+                "id": 12345 
             },
             {
                 "name": "Physics",
                 "color": 2,
-                "id":"12346"
+                "id": 12346 
             },
             {
                 "name": "Science",
                 "color": 7,
-                "id":"12347"
+                "id": 12347 
             },
             {
                 "name": "Engineering",
                 "color": 3,
-                "id":"12348"
+                "id": 12348 
             },
             {
                 "name": "Algebra",
                 "color": 4,
-                "id":"12349"
+                "id": 12349 
             },
             {
                 "name": "Geometry",
                 "color": 5,
-                "id":"12340"
+                "id": 12340 
             },
             {
                 "name": "Computer Sciences",
                 "color": 6,
-                "id":"12341"
+                "id": 12341 
+            }
+        ],
+        "user_history": [
+            {
+                "date": {
+                    "year": 2020,
+                    "month": 2,
+                    "day": 23
+                },
+                "goal_percentage": 0.23,
+                "tasks": [
+                    {
+                        "task_id": 12345,
+                        "runs": [
+                            {
+                                "times": 2,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            },
+                            {
+                                "times": 3,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "task_id": 12346,
+                        "runs": [
+                            {
+                                "times": 2,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            },
+                            {
+                                "times": 3,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "date": {
+                    "year": 2020,
+                    "month": 2,
+                    "day": 25
+                },
+                "goal_percentage": 0.23,
+                "tasks": [
+                    {
+                        "task_id": 12345,
+                        "runs": [
+                            {
+                                "times": 2,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            },
+                            {
+                                "times": 3,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "task_id": 12346,
+                        "runs": [
+                            {
+                                "times": 2,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            },
+                            {
+                                "times": 3,
+                                "duration": {
+                                    "seconds": 0,
+                                    "minutes": 25
+                                }
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     }

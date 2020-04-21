@@ -2,6 +2,7 @@ import { getBlack, getPallete } from './../theme/colors';
 import Moment from 'react-moment';
 
 const DetailsPanel = props => {
+    const { userData } = props;
     const months = [
         'January',
         'February',
@@ -50,20 +51,69 @@ const DetailsPanel = props => {
         return `${weekdays[weekday]} ${day} ${months[month]} ${year}`;
     }
 
+    const isFutureMonth = (year, month, day) => {
+        let givenDate = new Date(year, month, day);
+        let isFutureMonth = givenDate > today ? true : false;
+        return isFutureMonth;
+    }
+
+    const isDayEmpty = (year, month, day) => {
+        let givenDate = new Date(year, month, day);
+        let userTaskHistory = userData.user_history;
+        if (userTaskHistory) {
+            userTaskHistory.forEach(task => {
+                let taskDate = new Date(task.date.year, task.date.month, task.date.day);
+                if (taskDate.getTime() == givenDate.getTime()) {
+                    console.log(givenDate + ' is not empty')
+                    return false;
+                } else {
+                    console.log('Is empty');
+                    return true;
+                }
+            })
+        }
+    }
+
+    const FutureDay = () => {
+        return (
+            <img src='/img/icon-day-indicator-disabled.png'/>
+        )
+    }
+
+    const DayIndicator = (props) => {
+        let completed = props.completed;
+        return completed > 75 ?
+            <img src='/img/icon-day-indicator-100.png' /> :
+            completed == 0 ?
+            <img src='/img/icon-day-indicator-empty.png' /> :
+            ''
+    }
+
     return (
         <section className="details-panel">
-            <h2 className="dropdown-title-selector">Months</h2>
+            <h2 className="dropdown-title-selector">Year</h2>
             <section className="months-container">
                 {months.map((month, monthIndex) => {
                     return (
-                        <section className="month" key={monthIndex}>
+                        <section 
+                            className={monthIndex > today.getMonth() ?
+                                'month following-month' :
+                                'month'}
+                            key={monthIndex}>
                             <h3 className="month-name">{month}</h3>
                             <section className="day-progress-container">
                                 {turnDaysIntoArray(monthIndex).map((day) => {
                                     return (
                                         <section 
                                             title={formatDate(new Date(today.getFullYear(), monthIndex, day))}
-                                            className="day-indicator empty"></section>
+                                            className="day-indicator">
+                                                {isFutureMonth(today.getFullYear(), monthIndex, day) ?
+                                                    <FutureDay /> :
+                                                    !isDayEmpty(today.getFullYear(), monthIndex, day) ? 
+                                                        <DayIndicator completed={0} /> :
+                                                        <DayIndicator completed={100} />
+                                                }
+                                        </section>
                                     )
                                 })}
                             </section>
@@ -112,36 +162,35 @@ const DetailsPanel = props => {
                     background: lightgray;
                     border-radius: 10px;
                 }
-                .months-container .month {
+                .month {
                     width: 47%;
                     margin-bottom: 20px;
                 }
-                .months-container .month .month-name {
+                .month .month-name {
                     font-weight: 500;
                     color: ${getBlack(.5)};
                     padding-bottom: 3px;
                     border-bottom: 1px solid ${getBlack(.1)};
                     margin-bottom: 10px;
+                    font-size: .8rem;
                 }
+                .month.following-month h3 {
+                    opacity: .3;
+                }
+            `}</style>
+            <style jsx global>{`
                 .day-progress-container {
                     display: grid;
                     grid-template-columns: repeat(7, 7fr);
                     grid-template-rows: repeat(5, auto);
-                    column-gap: 10px;
+                    column-gap: 3px;
                     row-gap: 5px;
                 }
-                .day-progress-container .day-indicator {
-                    background-color: ${getPallete('green')};
+                .day-progress-container .day-indicator img {
                     width: 100%;
-                    height: 1.4vw;
-                    border-radius: 100px;
-                    cursor: pointer;
-                    transition: .1s ease-in-out transform;
                 }
-                .day-progress-container .day-indicator:hover {
-                    transform: scale(.9);
-                }
-            `}</style>
+            `}
+            </style>
         </section>
     )
 }
