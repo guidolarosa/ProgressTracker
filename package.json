@@ -1,12 +1,13 @@
 {
-  "name": "ProgressTracker",
+  "name": "progresstracker",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [],
   "author": "",
